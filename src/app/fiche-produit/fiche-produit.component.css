@@ -1,0 +1,19 @@
+:host {
+    display: block;
+    background-color: rgb(197, 229, 248);
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+} 
+
+.blocCentre {
+    min-width: 150px;
+    flex-grow: 8;
+}
+
+.blocDroite {
+    flex-grow: 1;
+    min-width: 100px;
+}
