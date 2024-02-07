@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PRODUITS } from '../mock-produits';
+//import { PRODUITS } from '../mock-produits';
 import { Produit } from '../produit';
+import { ProduitService } from '../produit.service';
 
 @Component({
   selector: 'app-liste-produits',
@@ -8,11 +9,17 @@ import { Produit } from '../produit';
   styleUrls: ['../shared/shared-styles.css', './liste-produits.component.css']
 })
 export class ListeProduitsComponent implements OnInit {
-  produits = PRODUITS
+  //produits = PRODUITS
+  produits: Produit[] = [];
 
-  constructor() { }
+  constructor(private produitService: ProduitService) { }
 
   ngOnInit(): void {
+    this.getProduits();
+  }
+  getProduits(): void {
+    this.produitService.getProduits()
+    .subscribe(resultat => this.produits = resultat);
   }
 
 }

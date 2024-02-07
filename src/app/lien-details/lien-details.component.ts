@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-lien-details',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../shared/shared-styles.css', './lien-details.component.css']
 })
 export class LienDetailsComponent implements OnInit {
+  @Input() lien: string = ""
 
   constructor() { }
 
