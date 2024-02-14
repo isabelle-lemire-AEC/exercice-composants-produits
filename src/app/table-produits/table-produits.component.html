@@ -1,0 +1,82 @@
+<div class="flex-container">
+    <!-- Formulaire d'ajout -->
+    <form #produitFormAjout="ngForm">
+        <mat-form-field>
+            <mat-label>Nom du produit</mat-label>
+            <input matInput placeholder="Ex. Tournevis" required minlength="2" maxlength="50" name="description" 
+            [(ngModel)]="newProduit.nom" #nom="ngModel" (keyup.enter)="addProduit(produitFormAjout)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description du produit</mat-label>
+            <input matInput placeholder="Ex. à tête plate" required minlength="2" maxlength="50" name="nom" 
+            [(ngModel)]="newProduit.description" #description="ngModel" (keyup.enter)="addProduit(produitFormAjout)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>prix</mat-label>
+            <input matInput placeholder="9,99$" required minlength="2" maxlength="50" name="prix" 
+            [(ngModel)]="newProduit.prix" #description="ngModel" (keyup.enter)="addProduit(produitFormAjout)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>lien</mat-label>
+            <input matInput placeholder="lien.com" required minlength="2" maxlength="50" name="lien" 
+            [(ngModel)]="newProduit.lien" #description="ngModel" (keyup.enter)="addProduit(produitFormAjout)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>id de l'image</mat-label>
+            <input matInput placeholder=" de la photo" required minlength="2" maxlength="50" name="id_picsum" 
+            [(ngModel)]="newProduit.id_picsum" #description="ngModel" (keyup.enter)="addProduit(produitFormAjout)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Quantité en stock</mat-label>
+            <input matInput placeholder="Ex. 5" required minlength="2" maxlength="50" name="qteStock" 
+            [(ngModel)]="newProduit.qteStock" #description="ngModel" (keyup.enter)="addProduit(produitFormAjout)">
+        </mat-form-field>
+        
+        <button mat-fab color="primary" aria-label="Ajouter" [disabled]="!produitFormAjout.form.valid" (click)="addProduit(produitFormAjout)">
+            <mat-icon>add</mat-icon>
+        </button>
+    
+        <!-- Ici c'est la gestion d'erreur -->
+        <mat-error *ngIf="nom.invalid && (nom.dirty || nom.touched) && nom.hasError('required')">
+            Le nom est obligatoire.
+        </mat-error>
+        <mat-error *ngIf="nom.invalid && (nom.dirty || nom.touched) && nom.hasError('minlength')">
+            Le nom doit contenir au moins 2 caractères.
+        </mat-error>
+        <mat-error *ngIf="nom.invalid && (nom.dirty || nom.touched) && nom.hasError('maxlength')">
+            Le nom doit contenir au maximum 50 caractères.
+        </mat-error>
+    </form>
+
+    <!-- Formulaire de recherche (filtre) -->
+    <mat-form-field class="ml-auto">
+        <mat-label>Filtre</mat-label>
+        <input matInput (keyup)="applyFilter($event)" #input>
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+</div>
+
+<!-- Liste des produits -->
+<table mat-table #tableProduits [dataSource]="dataSourceProduits" matSort>
+    <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+        <td mat-cell *matCellDef="let produit"> {{produit.nom}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let produit">
+            <button mat-icon-button aria-label="Supprimer" (click)="deleteProduit(produit.id)">
+            <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+        
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+</table>
+
+<!-- pagination -->
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Sélectionner la page des produits"></mat-paginator>
+    

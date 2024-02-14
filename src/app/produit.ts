@@ -1,12 +1,13 @@
-import { Caracteristiques } from "./caracteristiques";
+//import { Caracteristiques } from "./caracteristiques";
 
 export interface Produit {
     id?: number;
     nom: string,
     description: string,
+    prix: number,
     lien: string,
-    url_image: string,
-    prix: number, 
-    caracteristiques : Caracteristiques
+    id_picsum: number,
+    qteStock: number
+    //caracteristiques : Caracteristiques
 }
 
