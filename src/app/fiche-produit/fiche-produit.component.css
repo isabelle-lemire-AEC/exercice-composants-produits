@@ -1,6 +1,9 @@
 :host {
+    /*
     display: block;
     background-color: rgb(197, 229, 248);
+    margin: 25px 0;
+    */
 }
 
 .flex {
@@ -11,9 +14,15 @@
 .blocCentre {
     min-width: 150px;
     flex-grow: 8;
+    margin-left: 25px;
+    background-color: antiquewhite;
+    padding: 25px;
 }
 
 .blocDroite {
     flex-grow: 1;
     min-width: 100px;
+    margin-left: 25px;
+    background-color: lightgray;
+    padding: 25px;
 }

@@ -17,7 +17,7 @@ export class TableProduitsComponent implements OnInit {
   columnsToDisplay = ['nom', 'actions'];
 
   @ViewChild(MatTable) tableProduits!: MatTable<Produit>;
-  newProduit: Produit = {
+  produit: Produit = {
     nom: '',
     description: '',
     prix: 0,
@@ -55,14 +55,31 @@ export class TableProduitsComponent implements OnInit {
     );
   }
 
-  addProduit(produitFormAjout: NgForm) { 
-    if (produitFormAjout.valid) { 
-      this.produitService.addProduit(this.newProduit).subscribe(_ => { // si on ne réutilise pas le résultat on met un underscore
-            produitFormAjout.resetForm(); //réinitialise le formulaire
+  addProduit(produitForm: NgForm) { 
+    if (produitForm.valid) { 
+      this.produitService.addProduit(this.produit).subscribe(_ => { // si on ne réutilise pas le résultat on met un underscore
+            produitForm.resetForm(); //réinitialise le formulaire
             this.getProduits(); // met a jour et va chercher la liste des produits
             this._snackBar.open("Produit ajouté!", undefined, {
               duration: 2000
             });
+      });
+    }
+  }
+
+  showFormProduit(produit: Produit) { // pour faire apparaitre le produit dans le formulaire de modif
+    this.produit = produit;
+  }
+
+    
+  updateProduit(produitForm: NgForm) {
+    if (produitForm.valid) { // vérifie si c'est valide
+      this.produitService.updateProduit(this.produit).subscribe(_ => { // appelle la méthode de update dans mes services et fait le update
+        produitForm.resetForm(); // reset la liste
+        this.getProduits(); // va chercher les produits
+        this._snackBar.open("Produit modifié!", undefined, {
+        duration: 2000
+        });
       });
     }
   }

@@ -1,12 +1,37 @@
-Fiche produit
-<div class="flex">
-    <app-image></app-image>
-    <div class="blocCentre">
-        <app-nom-description [description]="produit?.description" [nom]="produit?.nom"></app-nom-description>
-        <!-- <app-caracteristiques [caracteristiques]="produit?.caracteristiques"></app-caracteristiques> -->
-    </div>
-    <div class="blocDroite">
-        <app-prix [prix]="produit?.prix"></app-prix>
-        <app-lien-details></app-lien-details>
+<div class="container-marge">
+    <div *ngIf="produit" class="flex">
+        <p><app-image></app-image>
+        <br>id de l'image : {{ produit.id_picsum }}
+        <div class="blocCentre">
+            <app-nom-description [nom]="produit.nom" [description]="produit.description"></app-nom-description>
+            <p>- id produit : {{ produit.id }}</p>
+        </div>
+        <div class="blocDroite">
+            <app-prix [prix]="produit.prix"></app-prix>
+            <h3>Quantité en stock : {{ produit.qteStock }}</h3>
+            <app-lien-details [url]="produit.lien"></app-lien-details>
+        </div>
     </div>
 </div>
+
+
+<!-- SANS COMPOSANT
+<div class="container-marge">
+    <div *ngIf="produit" class="flex">
+        <p><img src="https://picsum.photos/id/237/200/300" alt="">
+            <br>id de l'image : {{ produit.id_picsum }}</p>
+        <div class="blocCentre">
+            <h2>{{ produit.nom }}</h2>
+            <p>- id produit : {{ produit.id }}</p>
+            <hr>
+            <p>{{ produit.description }}</p>
+        </div>
+        <div class="blocDroite">
+            <h2>{{ produit.prix}} $</h2>
+            <h3>Quantité en stock : {{ produit.qteStock }}</h3>
+            <a href="{{ produit.lien }}" target="_blank">En savoir plus</a>
+        </div>
+    </div>
+</div>
+
+ -->

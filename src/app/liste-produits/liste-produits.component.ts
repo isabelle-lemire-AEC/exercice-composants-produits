@@ -6,7 +6,7 @@ import { ProduitService } from '../produit.service';
 @Component({
   selector: 'app-liste-produits',
   templateUrl: './liste-produits.component.html',
-  styleUrls: ['../shared/shared-styles.css', './liste-produits.component.css']
+  styleUrls: ['./liste-produits.component.css']
 })
 export class ListeProduitsComponent implements OnInit {
   //produits = PRODUITS
@@ -17,9 +17,13 @@ export class ListeProduitsComponent implements OnInit {
   ngOnInit(): void {
     this.getProduits();
   }
+  
   getProduits(): void {
-    this.produitService.getProduits()
-    .subscribe(resultat => this.produits = resultat);
+    this.produitService.getProduits().subscribe(
+      produits => {
+        this.produits = produits;
+      }
+    );
   }
 
 }

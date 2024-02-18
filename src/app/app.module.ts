@@ -14,7 +14,6 @@ import { NomDescriptionComponent } from './nom-description/nom-description.compo
 import { PiedPageComponent } from './pied-page/pied-page.component';
 import { PrixComponent } from './prix/prix.component';
 import { ImageComponent } from './image/image.component';
-import { CaracteristiquesComponent } from './caracteristiques/caracteristiques.component';
 import { TableProduitsComponent } from './table-produits/table-produits.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -33,6 +32,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { FormsModule } from '@angular/forms';
+import { AccueilComponent } from './accueil/accueil.component';
+import { AProposComponent } from './a-propos/a-propos.component';
 
 
 @NgModule({
@@ -46,8 +47,9 @@ import { FormsModule } from '@angular/forms';
     PiedPageComponent,
     PrixComponent,
     ImageComponent,
-    CaracteristiquesComponent,
-    TableProduitsComponent
+    TableProduitsComponent,
+    AccueilComponent,
+    AProposComponent
   ],
   imports: [
     BrowserModule,

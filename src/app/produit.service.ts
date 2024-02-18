@@ -19,16 +19,21 @@ export class ProduitService {
     return this.http.get<Produit[]>(this.API_URL);  
   }
 
+  getProduit(id: number): Observable<Produit> {
+    const url = `${this.API_URL}?id=${id}`;
+    return this.http.get<Produit>(url);
+  }
+
   addProduit(produit:Produit): Observable<void> {
     return this.http.post<void>(this.API_URL, produit, httpOptions);
   }
 
   updateProduit(produit:Produit): Observable<void> {
-    return this.http.put<void>(`${this.API_URL}/${produit.id}`, produit, httpOptions);
+    return this.http.put<void>(`${this.API_URL}?id=${produit.id}`, produit, httpOptions);
   }
 
   deleteProduit(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.API_URL}?id=${id}`); // faire attention pour ne pas mettre /${_id}` la diagonale est déjà présente dans le url
+    return this.http.delete<void>(`${this.API_URL}?id=${id}`); // faire attention pour ne pas mettre /${id}` la diagonale est déjà présente dans le url
   }
 
 

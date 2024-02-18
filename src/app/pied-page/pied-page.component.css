@@ -1,4 +1,10 @@
 :host {
     display: block;
-    background-color: rgb(255, 228, 108);
+    background-color: rgb(27, 25, 16);
+    text-align: center;
+    color: white;
+}
+
+.container-marge {
+    padding: 25px;
 }
