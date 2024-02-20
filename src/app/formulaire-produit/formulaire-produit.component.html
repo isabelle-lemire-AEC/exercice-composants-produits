@@ -1,0 +1,59 @@
+<!-- Formulaire d'ajout -->
+<form #produitForm="ngForm">
+    
+    <mat-form-field>
+        <mat-label>Nom du produit</mat-label>
+        <input matInput placeholder="Ex. Tournevis" required minlength="2" maxlength="50" name="description" 
+        [(ngModel)]="produit.nom" #nom="ngModel" (keyup.enter)="addProduit(produitForm)">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Description du produit</mat-label>
+        <input matInput placeholder="Ex. à tête plate" required minlength="2" maxlength="50" name="nom" 
+        [(ngModel)]="produit.description" #description="ngModel" (keyup.enter)="addProduit(produitForm)">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>prix</mat-label>
+        <input matInput placeholder="9,99$" required minlength="2" maxlength="50" name="prix" 
+        [(ngModel)]="produit.prix" #description="ngModel" (keyup.enter)="addProduit(produitForm)">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>lien</mat-label>
+        <input matInput placeholder="lien.com" required minlength="2" maxlength="50" name="lien" 
+        [(ngModel)]="produit.lien" #description="ngModel" (keyup.enter)="addProduit(produitForm)">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>id de l'image</mat-label>
+        <input matInput placeholder=" de la photo" required minlength="2" maxlength="50" name="id_picsum" 
+        [(ngModel)]="produit.id_picsum" #description="ngModel" (keyup.enter)="addProduit(produitForm)">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Quantité en stock</mat-label>
+        <input matInput placeholder="Ex. 5" required minlength="2" maxlength="50" name="qteStock" 
+        [(ngModel)]="produit.qteStock" #description="ngModel" (keyup.enter)="addProduit(produitForm)">
+    </mat-form-field>
+
+    <!-- Ici c'est la gestion d'erreur -->
+    <mat-error *ngIf="nom.invalid && (nom.dirty || nom.touched) && nom.hasError('required')">
+        Le nom est obligatoire.
+    </mat-error>
+    <mat-error *ngIf="nom.invalid && (nom.dirty || nom.touched) && nom.hasError('minlength')">
+        Le nom doit contenir au moins 2 caractères.
+    </mat-error>
+    <mat-error *ngIf="nom.invalid && (nom.dirty || nom.touched) && nom.hasError('maxlength')">
+        Le nom doit contenir au maximum 50 caractères.
+    </mat-error>
+    
+    <!-- Bouton annuler et créer -->
+    <button *ngIf="produit.id; else boutonAjout" mat-button mat-aria-label="Modifier" 
+        [disabled]="!produitForm.form.valid" (click)="updateProduit(produitForm)">modifier</button>
+    
+    <ng-template #boutonAjout>
+        <button mat-fab color="primary" aria-label="Ajouter" 
+            [disabled]="!produitForm.form.valid" (click)="addProduit(produitForm)">ajouter</button>
+    </ng-template>
+
+    <button mat-button mat-aria-label="Annuler" (click)="annuler()">
+        Annuler
+    </button>
+
+</form>

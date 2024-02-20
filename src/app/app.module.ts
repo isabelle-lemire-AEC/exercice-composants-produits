@@ -30,10 +30,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { FormsModule } from '@angular/forms';
 import { AccueilComponent } from './accueil/accueil.component';
 import { AProposComponent } from './a-propos/a-propos.component';
+import { FormulaireProduitComponent } from './formulaire-produit/formulaire-produit.component';
 
 
 @NgModule({
@@ -49,7 +52,8 @@ import { AProposComponent } from './a-propos/a-propos.component';
     ImageComponent,
     TableProduitsComponent,
     AccueilComponent,
-    AProposComponent
+    AProposComponent,
+    FormulaireProduitComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,7 @@ import { AProposComponent } from './a-propos/a-propos.component';
     MatButtonModule,
     MatInputModule,
     MatSnackBarModule,
+    MatDialogModule,
     FormsModule
   ],
   providers: [ProduitService],

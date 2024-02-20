@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Produit } from '../produit';
-import { ProduitService } from '../produit.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+
+import { Produit } from '../produit';
+import { ProduitService } from '../produit.service';
+import { FormulaireProduitComponent } from '../formulaire-produit/formulaire-produit.component';
+
 
 @Component({
   selector: 'app-table-produits',
@@ -17,6 +20,10 @@ export class TableProduitsComponent implements OnInit {
   columnsToDisplay = ['nom', 'actions'];
 
   @ViewChild(MatTable) tableProduits!: MatTable<Produit>;
+  /* Pour la pagniation et le tri */
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  
   produit: Produit = {
     nom: '',
     description: '',
@@ -25,13 +32,12 @@ export class TableProduitsComponent implements OnInit {
     id_picsum: 0,
     qteStock: 0    
   };
-
-  /* Pour la pagniation et le tri */
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
   
   
-  constructor(private produitService: ProduitService, private _snackBar: MatSnackBar) { }
+  constructor(
+    private produitService: ProduitService, 
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getProduits()
@@ -55,33 +61,26 @@ export class TableProduitsComponent implements OnInit {
     );
   }
 
-  addProduit(produitForm: NgForm) { 
-    if (produitForm.valid) { 
-      this.produitService.addProduit(this.produit).subscribe(_ => { // si on ne réutilise pas le résultat on met un underscore
-            produitForm.resetForm(); //réinitialise le formulaire
-            this.getProduits(); // met a jour et va chercher la liste des produits
-            this._snackBar.open("Produit ajouté!", undefined, {
-              duration: 2000
-            });
+  openDialog(produit?: Produit) { 
+    const dialogRef = this.dialog.open(FormulaireProduitComponent, {
+      data: produit,
       });
-    }
-  }
-
-  showFormProduit(produit: Produit) { // pour faire apparaitre le produit dans le formulaire de modif
-    this.produit = produit;
-  }
-
     
-  updateProduit(produitForm: NgForm) {
-    if (produitForm.valid) { // vérifie si c'est valide
-      this.produitService.updateProduit(this.produit).subscribe(_ => { // appelle la méthode de update dans mes services et fait le update
-        produitForm.resetForm(); // reset la liste
-        this.getProduits(); // va chercher les produits
-        this._snackBar.open("Produit modifié!", undefined, {
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+      this._snackBar.open(result, undefined, {
         duration: 2000
-        });
       });
-    }
+      this.getProduits();
+      }
+    });
+  }
+
+  ProduitAjoute() { 
+    this.getProduits();
+    this._snackBar.open("Produit ajouté!", undefined, {
+      duration: 2000
+    });
   }
 
   deleteProduit(id: number) { 
